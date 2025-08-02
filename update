@@ -100,7 +100,7 @@ getgenv().gagConfig = {
     --= Gear Settings =--
     BUY_GEAR_SHOP = {
         "Master Sprinkler", "Godly Sprinkler", "Advanced Sprinkler", "Basic Sprinkler",
-        "Lightning Rod", "Level Up Lollipop", "Medium Treat", "Medium Toy"
+        "Lightning Rod", "Level Up Lollipop", "Medium Treat", "Medium Toy", "Trading Ticket"
     },
     USE_SPRINKLER = {
         "Master Sprinkler", "Godly Sprinkler", "Advanced Sprinkler", "Basic Sprinkler",
