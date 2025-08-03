@@ -18,8 +18,8 @@ getgenv().gagConfig = {
     OPEN_ALL_SEED_PACK = true,
 
     --= Plant Settings =--
-    MAX_PLANTS = 150,
-    DESTROY_UNTIL_MIN_PLANTS = 50,
+    MAX_PLANTS = 200,
+    DESTROY_UNTIL_MIN_PLANTS = 200,
     DELETE_PLANTS_AFTER_MAX = {
         "Carrot", "Strawberry", "Blueberry", "Apple", "Tomato", "Corn", "Coconut",
         "Pumpkin", "Cactus", "Dragon Fruit", "Mango", "Grape", "Mushroom", "Pepper", "Cacao",
