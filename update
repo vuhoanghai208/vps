@@ -75,7 +75,7 @@ getgenv().gagConfig = {
     KEEP_PETS = {
         "T-Rex", "Corrupted Kitsune", "Dragonfly", "Spinosaurus",
         "Raccoon", "Fennec Fox", "Disco Bee", "Butterfly",
-        "Mimic Octopus", "Kitsune","Mochi Mouse","French Fry Ferret"
+        "Mimic Octopus", "Kitsune","Mochi Mouse","French Fry Ferret",
         ["Starfish"] = 20,
         ["Tanchozuru"] = 8,
         ["Kodama"] = 8,
