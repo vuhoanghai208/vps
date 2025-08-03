@@ -75,18 +75,18 @@ getgenv().gagConfig = {
     KEEP_PETS = {
         "T-Rex", "Corrupted Kitsune", "Dragonfly", "Spinosaurus",
         "Raccoon", "Fennec Fox", "Disco Bee", "Butterfly",
-        "Mimic Octopus", "Kitsune",
+        "Mimic Octopus", "Kitsune","Mochi Mouse",
         ["Starfish"] = 20,
         ["Tanchozuru"] = 8,
         ["Kodama"] = 8,
         ["Corrupted Kodama"] = 8
     },
-    KEEP_PETS_WEIGHT = {},
-    KEEP_PETS_AGE = {},
+    KEEP_PETS_WEIGHT = {["Red Giant Ant"] = 5},
+    KEEP_PETS_AGE = {["Starfish"] = 75},
 
     EQUIP_PETS = {
-        ["Kodama"] = 8,
-        "Capybara", "Starfish"
+        ["Kodama"] = 7,
+        ["Starfish"] = 1,
     },
     USE_PETS_FOR_UPGRADE_SLOT = {
         "Starfish", "Capybara"
