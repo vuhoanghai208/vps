@@ -1,6 +1,5 @@
 script_key="gYRhaAHbVqWktjWYQAhbkwqdsgzfbAsW";
 setfpscap(3)
-
 getgenv().gagConfig = {
     --= Event Settings =--
     CRAFT_EVENT = { "Anti Bee Egg" },
@@ -18,8 +17,8 @@ getgenv().gagConfig = {
     OPEN_ALL_SEED_PACK = true,
 
     --= Plant Settings =--
-    MAX_PLANTS = 200,
-    DESTROY_UNTIL_MIN_PLANTS = 200,
+    MAX_PLANTS = 150,
+    DESTROY_UNTIL_MIN_PLANTS = 50,
     DELETE_PLANTS_AFTER_MAX = {
         "Carrot", "Strawberry", "Blueberry", "Apple", "Tomato", "Corn", "Coconut",
         "Pumpkin", "Cactus", "Dragon Fruit", "Mango", "Grape", "Mushroom", "Pepper", "Cacao",
@@ -105,6 +104,7 @@ getgenv().gagConfig = {
         "Master Sprinkler", "Godly Sprinkler", "Advanced Sprinkler", "Basic Sprinkler",
         "Lightning Rod", "Level Up Lollipop", "Medium Treat", "Medium Toy"
     },
+
     --= Webhooks =--
     PET_WEBHOOK_URL = "https://discord.com/api/webhooks/1397922298501005433/GEYiKwB5LYJ2zP5k9EZDMrNeE2Hl6tJKSjZsi4q1-prT7PW-49ylG61Orx_dR73DgDaf",
     SEED_WEBHOOK_URL = "",
@@ -115,5 +115,4 @@ getgenv().gagConfig = {
     SHOW_WEBHOOK_USERNAME = true,
     SHOW_WEBHOOK_JOBID = false,
 }
-
 loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/6cb882027ef5de19462b160764dcfb53.lua"))()
