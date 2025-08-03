@@ -86,8 +86,7 @@ getgenv().gagConfig = {
     KEEP_PETS_AGE = {},
 
     EQUIP_PETS = {
-        ["Kodama"] = 7,
-        ["Corrupted Kodama"] = 1,
+        ["Kodama"] = ́8,
         "Capybara", "Starfish"
     },
     USE_PETS_FOR_UPGRADE_SLOT = {
