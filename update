@@ -28,20 +28,22 @@ getgenv().gagConfig = {
     FAVOURITE_FRUIT_MUTATIONS = {},  -- Stop Autosell
     SKIP_HARVEST_MUTATIONS = {},  -- Stop Harvest
 
-    KEEP_PETS = { "Corrupted Kitsune",
-			"Kitsune",
-			"Capybara",
-			"Dragonfly",
-			"Raccoon",
-			"Fennec Fox",
-			"Mimic Octopus",
-			"Red Fox",
-			"Blood Owl",
-"Spinosaurus",
-"T-Rex",
-			["Starfish"] = 25,
-"French Fry Ferret"
- },
+  KEEP_PETS = {
+    "Corrupted Kitsune",
+    "Kitsune",
+    "Capybara",
+    "Dragonfly",
+    "Raccoon",
+    "Fennec Fox",
+    "Mimic Octopus",
+    "Red Fox",
+    "Blood Owl",
+    "Spinosaurus",
+    "T-Rex",
+    "French Fry Ferret",
+    ["Starfish"] = 25
+},
+
     KEEP_PETS_WEIGHT = { ["Starfish"] = 5, ["Red Giant Ant"] = 5, ["Bear Bee"] = 5 },
     KEEP_PETS_AGE = { ["Starfish"] = 75 },
 
