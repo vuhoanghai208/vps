@@ -42,7 +42,7 @@ getgenv().gagConfig = {
 			["Starfish"] = 25,
 "French Fry Ferret",
  },
-    KEEP_PETS_WEIGHT = { ["Mochi Mouse"] = 4},
+    KEEP_PETS_WEIGHT = { ["Starfish"] = 5, ["Red Giant Ant"] = 5, ["Bear Bee"] = 5 },
     KEEP_PETS_AGE = { ["Starfish"] = 75 },
 
     EQUIP_PETS = { ["Capybara"] = 1, ["Starfish"] = 8, },
