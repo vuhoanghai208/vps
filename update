@@ -41,6 +41,7 @@ getgenv().gagConfig = {
     "Spinosaurus",
     "T-Rex",
     "French Fry Ferret",
+    "Giant Ant",
     ["Starfish"] = 25
 },
 
