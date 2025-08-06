@@ -41,7 +41,7 @@ getgenv().gagConfig = {
     "Spinosaurus",
     "T-Rex",
     "French Fry Ferret",
-    ["Starfish"] = 25
+    "Starfish"
 },
 
     KEEP_PETS_WEIGHT = { ["Red Giant Ant"] = 5, ["Bear Bee"] = 5 },
