@@ -42,13 +42,15 @@ getgenv().gagConfig = {
     "T-Rex",
     "French Fry Ferret",
     "Giant Ant",
+    "Seal",
+    "Blood Kiwi",
     ["Starfish"] = 25
 },
 
     KEEP_PETS_WEIGHT = { ["Red Giant Ant"] = 5, ["Bear Bee"] = 5 },
     KEEP_PETS_AGE = { ["Starfish"] = 75 },
 
-    EQUIP_PETS = { ["Capybara"] = 1, ["Starfish"] = 7, },
+    EQUIP_PETS = { ["Seal"] = 1, ["Starfish"] = 7, },
     USE_PETS_FOR_UPGRADE_SLOT = { "Starfish" },
     REMOVE_PET_MAX_UPGRADE = { "Capybara", "Starfish" },  -- Unequip from garden
 
