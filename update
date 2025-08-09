@@ -47,7 +47,7 @@ getgenv().gagConfig = {
     ["Starfish"] = 25
 },
 
-    KEEP_PETS_WEIGHT = { ["Red Giant Ant"] = 5, ["Bear Bee"] = 5 },
+    KEEP_PETS_WEIGHT = { ["Red Giant Ant"] = 6, ["Starfish"] = 6, ["Crab"] = 6, ["Seagull"] = 6, ["Flamingo"] = 6, ["Toucan"] = 6, ["Sea Turtle"] = 6, ["Orangutan"] = 6, ["Seal"] = 6, ["Grey Mouse"] = 6, ["Squirrel"] = 6, ["Brown Mouse"] = 6, ["Red Fox"] = 6, ["Ostrich"] = 6, ["Peacock"] = 6, ["Capybara"] = 6, ["Scarlet Macaw"] = 6, ["Caterpillar"] = 6, ["Snail"] = 6, ["Giant Ant"] = 6, ["Praying Mantis"] = 6, ["Bagel Bunny"] = 6, ["Pancake Mole"] = 6, ["Sushi Bear"] = 6, ["Spaghetti Sloth"] = 6, ["Nihonzaru"] = 6, ["Shiba Inu"] = 6, ["Tanchozuru"] = 6, ["Tanuki"] = 6, ["Kappa"] = 6 },
     KEEP_PETS_AGE = { ["Starfish"] = 75 },
 
     EQUIP_PETS = { ["Seal"] = 1, ["Capybara"] = 1, ["Starfish"] = 6, },
