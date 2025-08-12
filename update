@@ -56,7 +56,7 @@ getgenv().ConfigsKaitun = {
 		},
 		Place = {
 			Mode = "Select", -- Select , Lock
-			Select = { "idk" }, 
+			Select = { "Carrot" }, 
 			Lock = {
 				"Maple Apple",
 				"Sunflower",
@@ -151,13 +151,11 @@ getgenv().ConfigsKaitun = {
 			},
 			["Limit Upgrade"] = 5,
 			["Equip When Done"] = {
-                ["Gorilla Chef"] = { 4, 100, 2 },
-				["Spaghetti Sloth"] = { 4, 100, 1 },
-				["Sunny-Side Chicken"] = { 4, 100, 3 },
+				["Sunny-Side Chicken"] = { 8, 100,1 },
 			},
 		},
 		Favorite_LockedPet = true,
-		Locked_Pet_Age = 76, -- comment nói >60; bạn để 76 là OK nếu cố ý
+		Locked_Pet_Age = 60, -- comment nói >60; bạn để 76 là OK nếu cố ý
 		Locked = {
 			"Corrupted Kitsune",
 			"Kitsune",
@@ -188,7 +186,7 @@ getgenv().ConfigsKaitun = {
 			"Peacock","Scarlet Macaw","Capybara","Wasp","Tarantula Hawk","Moth","Bee","Honey Bee",
 			"Bear Bee","Petal Bee","Grey Mouse","Brown Mouse","Squirrel","Red Giant Ant","Hedgehog",
 			"Mole","Frog","Echo Frog","Night Owl","Brontosaurus","Dilophosaurus","Pterodactyl",
-			"Crab","Sushi Bear","Bagel Bunny","Mochi Mouse","Bacon Pig","Pancake Mole",
+			"Crab","Sushi Bear","Bagel Bunny","Mochi Mouse","Bacon Pig","Pancake Mole","Sunny-Side Chicken"
 		},
 	},
 
