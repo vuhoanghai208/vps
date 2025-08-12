@@ -128,6 +128,15 @@ getgenv().ConfigsKaitun = {
 			"Bug Egg",
 		}
 	},
+Instant_Sell = {
+			"Dog","Bunny","Golden Lab","Triceratops","Stegosaurus","Raptor","Seagull",
+			"Parasaurolophus","Pachycephalosaurus","Iguanodon","Shiba Inu","Nihonzaru","Tanuki",
+			"Kappa","Caterpillar","Snail","Giant Ant","Praying Mantis","Ankylosaurus","Ostrich",
+			"Peacock","Scarlet Macaw","Capybara","Wasp","Tarantula Hawk","Moth","Bee","Honey Bee",
+			"Bear Bee","Petal Bee","Grey Mouse","Brown Mouse","Squirrel","Red Giant Ant","Hedgehog",
+			"Mole","Frog","Echo Frog","Night Owl","Brontosaurus","Dilophosaurus","Pterodactyl",
+			"Crab","Sushi Bear","Bagel Bunny","Mochi Mouse","Bacon Pig","Pancake Mole",
+		},
 
 	Pets = {
 		["Start Delete Pet At"] = 45,
@@ -137,8 +146,7 @@ getgenv().ConfigsKaitun = {
 			},
 			["Limit Upgrade"] = 5,
 			["Equip When Done"] = { 
-				["Sunny-Side Chicken"] = { 4, 100,1 },
-                ["Gorilla Chef"] = { 4, 100,1 },
+                ["Gorilla Chef"] = { 8, 100,1 },
 			},
 		},
 		Favorite_LockedPet = true,
@@ -167,7 +175,6 @@ getgenv().ConfigsKaitun = {
     "Hotdog Daschund",
     ["Gorilla Chef"] = 8,
     "Red Fox",
-    "Tanchozuru",
     "Seal",
     "Blood Kiwi",
     ["Starfish"] = 5
