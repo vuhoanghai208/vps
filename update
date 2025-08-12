@@ -153,9 +153,8 @@ getgenv().ConfigsKaitun = {
 			["Equip When Done"] = {
 				["Sunny-Side Chicken"] = { 1, 100, 1 },
                 ["Lobster Thermidor"] = { 2, 100, 2 },
-                ["Hotdog Daschund"] = { 1, 100 , 3},
+                ["Hotdog Daschund"] = { 2, 100 , 3},
                 ["Gorilla Chef"] = { 3, 100 ,4},
-                ["Spaghetti Sloth"] = { 1, 100, 5},
 			},
 		},
 		Unfavorite_AllPet = true,
@@ -185,13 +184,7 @@ getgenv().ConfigsKaitun = {
 		},
 		LockPet_Weight = 6,
 		Instant_Sell = {
-			"Dog","Bunny","Golden Lab","Triceratops","Stegosaurus","Raptor","Seagull",
-			"Parasaurolophus","Pachycephalosaurus","Iguanodon","Shiba Inu","Nihonzaru","Tanuki",
-			"Kappa","Caterpillar","Snail","Giant Ant","Praying Mantis","Ankylosaurus","Ostrich",
-			"Peacock","Scarlet Macaw","Capybara","Wasp","Tarantula Hawk","Moth","Bee","Honey Bee",
-			"Bear Bee","Petal Bee","Grey Mouse","Brown Mouse","Squirrel","Red Giant Ant","Hedgehog",
-			"Mole","Frog","Echo Frog","Night Owl","Brontosaurus","Dilophosaurus","Pterodactyl",
-			"Crab","Sushi Bear","Bagel Bunny","Mochi Mouse","Bacon Pig","Pancake Mole","Sunny-Side Chicken"
+			""
 		},
 	},
 
