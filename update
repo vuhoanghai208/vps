@@ -55,7 +55,7 @@ getgenv().ConfigsKaitun = {
 			Custom = { "Carrot" }, -- any fruit u need to place
 		},
 		Place = {
-			Mode = "Select", -- Select , Lock
+			Mode = "lock", -- Select , Lock
 			Select = { "Carrot" }, 
 			Lock = {
 				"Maple Apple",
@@ -154,6 +154,7 @@ getgenv().ConfigsKaitun = {
 				["Sunny-Side Chicken"] = { 8, 100,1 },
 			},
 		},
+		Unfavorite_AllPet = false,
 		Favorite_LockedPet = true,
 		Locked_Pet_Age = 60, -- comment nói >60; bạn để 76 là OK nếu cố ý
 		Locked = {
@@ -178,7 +179,7 @@ getgenv().ConfigsKaitun = {
             ["Hotdog Daschund"] = 4,
             ["Koi"] = 8,
 		},
-		LockPet_Weight = 6, -- comment ghi 10 nhưng bạn set 6
+		LockPet_Weight = 10,
 		Instant_Sell = {
 			"Dog","Bunny","Golden Lab","Triceratops","Stegosaurus","Raptor","Seagull",
 			"Parasaurolophus","Pachycephalosaurus","Iguanodon","Shiba Inu","Nihonzaru","Tanuki",
