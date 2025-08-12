@@ -183,7 +183,7 @@ getgenv().ConfigsKaitun = {
             ["Hotdog Daschund"] = 2,
             ["Koi"] = 4,
 		},
-		LockPet_Weight = 10,
+		LockPet_Weight = 6,
 		Instant_Sell = {
 			"Dog","Bunny","Golden Lab","Triceratops","Stegosaurus","Raptor","Seagull",
 			"Parasaurolophus","Pachycephalosaurus","Iguanodon","Shiba Inu","Nihonzaru","Tanuki",
