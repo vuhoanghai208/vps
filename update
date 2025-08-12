@@ -155,6 +155,7 @@ getgenv().ConfigsKaitun = {
                 ["Lobster Thermidor"] = { 2, 100, 2 },
                 ["Hotdog Daschund"] = { 2, 100 , 3},
                 ["Gorilla Chef"] = { 3, 100 ,4},
+                "Starfish"
 			},
 		},
 		Unfavorite_AllPet = true,
