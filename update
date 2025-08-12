@@ -158,9 +158,9 @@ getgenv().ConfigsKaitun = {
                 ["Spaghetti Sloth"] = { 1, 100, 5},
 			},
 		},
-		Unfavorite_AllPet = false,
-		Favorite_LockedPet = true,
-		Locked_Pet_Age = 60, -- comment nói >60; bạn để 76 là OK nếu cố ý
+		Unfavorite_AllPet = true,
+		Favorite_LockedPet = false,
+		Locked_Pet_Age = 60,
 		Locked = {
 			"Corrupted Kitsune",
 			"Kitsune",
