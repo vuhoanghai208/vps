@@ -152,9 +152,7 @@ getgenv().ConfigsKaitun = {
 			["Limit Upgrade"] = 5,
 			["Equip When Done"] = {
 				["Sunny-Side Chicken"] = { 1, 100, 1 },
-                ["Lobster Thermidor"] = { 2, 100, 2 },
-                ["Hotdog Daschund"] = { 2, 100 , 3},
-                ["Gorilla Chef"] = { 3, 100 ,4},
+                ["Gorilla Chef"] = { 7, 100 ,2 },
                 "Starfish"
 			},
 		},
@@ -179,7 +177,7 @@ getgenv().ConfigsKaitun = {
 			["Starfish"] = 10,
 			"French Fry Ferret",
 			"Rainbow Hotdog Daschund",
-			["Gorilla Chef"] = 4,
+			["Gorilla Chef"] = 7,
             ["Hotdog Daschund"] = 2,
             ["Koi"] = 4,
 		},
