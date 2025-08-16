@@ -1,0 +1,210 @@
+getgenv().ConfigsKaitun = {
+	["Block Pet Gift"] = true,
+	Beta_Fix_Data_Sync = false,
+	Collect_Cooldown = 60, -- cooldown to collect fruit
+	JustFuckingCollectAll = false, -- Collect all (fruit not wait mutation)
+
+	["Low Cpu"] = true,
+	["Auto Rejoin"] = false,
+	["Rejoin When Update"] = false,
+
+	["Limit Tree"] = {
+		["Limit"] = 250,
+		["Destroy Untill"] = 200,
+
+		["Safe Tree"] = {
+			["Tomato"] = 5,
+			["Blood Banana"] = 5,
+			["Bamboo"] = 100,
+			["Mango"] = 5,
+			["Pineapple"] = 5,
+			["Beanstalk"] = 5,
+			["Giant Pinecone"] = 5,
+			["Sugar Apple"] = 5,
+			["Pepper"] = 5,
+			["Cacao"] = 5,
+			["Elder Strawberry"] = 5,
+			"Bone Blossom",
+			"Grand Tomato",
+			["Ember Lily"] = 5,
+			["Violet Corn"] = 5,
+			["Pumpkin"] = 5,
+			["Moon Melon"] = 5,
+			["Apple"] = 5,
+			["Coconut"] = 5,
+			["Feijoa"] = 5,
+			["Crown Melon"] = 5,
+			["Grape"] = 5,
+			["Dragon Fruit"] = 5,
+			["Cactus"] = 5,
+			["Peach"] = 5,
+			["Corn"] = 5,
+			["Banana"] = 5,
+			["Serenity"] = 5,
+			["Moon Mango"] = 5,
+			["Maple Apple"] = 5,
+			["Hive Fruit"] = 5,
+			["Lilac"] = 5,
+			["Soft Sunshine"] = 5,
+		}
+	},
+
+	Seed = {
+		Buy = {
+			Mode = "Auto", -- Custom , Auto
+			Custom = { "Carrot" }, -- any fruit u need to place
+		},
+		Place = {
+			Mode = "lock", -- Select , Lock
+			Select = { "Carrot" }, 
+			Lock = {
+				"Maple Apple",
+				"Sunflower",
+				"Dragon Pepper",
+				"Elephant Ears",
+				"Moon Melon",
+				"Easter Egg",
+				"Moon Mango",
+				"Bone Blossom",
+				"Fossilight",
+			}
+		}
+	},
+
+	["Seed Pack"] = { Locked = { } },
+
+	Events = {
+		["Cook Event"] = {
+			Minimum_Money = 30_000_000, -- nếu gặp lỗi số, đổi thành 30000000
+			Rewards_Item = {
+				"Gourmet Egg",
+				"Gorilla Chef",
+				"Culinarian Chest",
+				"Gourmet Seed Pack",
+				"Sunny-Side Chicken",
+				"Cooking Cauldron",
+                "Pet Shard Aromatic",
+			}
+		},
+		["Traveling Shop"] = { "Bee Egg" },
+		Craft = {
+			"Ancient Seed Pack",
+			"Anti Bee Egg",
+			"Primal Egg",
+		},
+		Shop = {
+			"Zen Egg",
+			"Zen Seed Pack",
+			"Spiked Mango",
+			"Pet Shard Tranquil",
+			"Pet Shard Corrupted",
+			"Koi",
+			"Soft Sunshine",
+			"Sakura Bush",
+			"Raiju",
+		},
+		Start_Do_Honey = 2_000_000, -- nếu lỗi số, đổi thành 2000000
+	},
+
+	Gear = {
+		Buy = {
+			"Master Sprinkler",
+			"Trading Ticket",
+			"Godly Sprinkler",
+			"Grandmaster Sprinkler", -- sửa chính tả
+			"Advanced Sprinkler",
+			"Basic Sprinkler",
+			"Lightning Rod",
+			"Level Up Lollipop",
+			"Medium Treat",
+			"Medium Toy",
+		},
+		Lock = { },
+	},
+
+	Eggs = {
+		Place = {
+			"Gourmet Egg",
+            "Zen Egg",
+            "Common Summer Egg",
+			"Bug Egg",
+			"Paradise Egg",
+            "Mythical Egg",
+		},
+		Buy = {
+			"Common Summer Egg",
+			"Bee Egg",
+			"Oasis Egg",
+			"Paradise Egg",
+			"Anti Bee Egg",
+			"Night Egg",
+			"Bug Egg",
+            "Mythical Egg",
+		}
+	},
+
+	Pets = {
+		["Start Delete Pet At"] = 40,
+		["Upgrade Slot"] = {
+			["Pet"] = {
+				["Starfish"] = { 8, 76, 1, true }, -- last = auto equip
+			},
+			["Limit Upgrade"] = 5,
+			["Equip When Done"] = {
+                ["Starfish"] = {8, 100, 1},
+			},
+		},
+		Unfavorite_AllPet = true,
+		Favorite_LockedPet = false,
+		Locked_Pet_Age = 60,
+		Locked = {
+			"Corrupted Kitsune",
+			"Kitsune",
+			"Capybara",
+			"Dragonfly",
+			"Raccoon",
+			"Fennec Fox",
+			"Mimic Octopus",
+			"Red Fox",
+			"Blood Owl",
+			"Spinosaurus",
+			"T-Rex",
+			"Lobster Thermidor",
+			["Spaghetti Sloth"] = 3,
+			["Sunny-Side Chicken"] = 2,
+			["Starfish"] = 10,
+			"French Fry Ferret",
+			"Rainbow Hotdog Daschund",
+			["Gorilla Chef"] = 7,
+            ["Hotdog Daschund"] = 2,
+            ["Koi"] = 4,
+		},
+		LockPet_Weight = 6,
+		Instant_Sell = {
+			""
+		},
+	},
+
+		Webhook = {
+		UrlPet = "https://discord.com/api/webhooks/1397922298501005433/GEYiKwB5LYJ2zP5k9EZDMrNeE2Hl6tJKSjZsi4q1-prT7PW-49ylG61Orx_dR73DgDaf",
+		UrlSeed = "",
+		PcName = "hai",
+		Noti = {
+			Seeds = { "Sunflower", "Dragon Pepper", "Elephant Ears" },
+			SeedPack = { "Idk" },
+			Pets = {
+				"French Fry Ferret",
+				"Rainbow Hotdog Daschund",
+				"Lobster Thermidor",
+				"King Cabbage",
+				"Kitsune",
+                "Mimic Octopus",
+			    "Red Fox",
+			},
+			Pet_Weight_Noti = true,
+		}
+	},
+}
+
+License = "1EPEZDFUWJhzP6CRAecSJIMUbxdWiKXs"
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Real-Aya/Loader/main/Init.lua'))()
