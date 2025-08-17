@@ -35,7 +35,7 @@ getgenv().gagConfig = {
     KEEP_PETS_AGE = 90,
 
     EQUIP_PETS = { 
-["Sunny-Side Chicken"] = 3 
+["Sunny-Side Chicken"] = 3,
 ["Seal"] = 2,
 ["Dairy Cow"] = 2,
 ["Jackalope"] = 2,
