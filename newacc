@@ -1,16 +1,19 @@
 getgenv().ConfigsKaitun = {
+	Beta_Fix_Data_Sync = true,
+
+	NoDeletePlayer = false,
+
 	["Block Pet Gift"] = true,
-	Beta_Fix_Data_Sync = false,
-	Collect_Cooldown = 60, -- cooldown to collect fruit
-	JustFuckingCollectAll = false, -- Collect all (fruit not wait mutation)
+
+	Collect_Cooldown = 120, -- cooldown to collect fruit
 
 	["Low Cpu"] = true,
-	["Auto Rejoin"] = false,
-	["Rejoin When Update"] = false,
+	["Auto Rejoin"] = true,
 
+	["Rejoin When Update"] = false,
 	["Limit Tree"] = {
-		["Limit"] = 250,
-		["Destroy Untill"] = 200,
+		["Limit"] = 200,
+		["Destroy Until"] = 180,
 
 		["Safe Tree"] = {
 			["Tomato"] = 5,
@@ -52,11 +55,15 @@ getgenv().ConfigsKaitun = {
 	Seed = {
 		Buy = {
 			Mode = "Auto", -- Custom , Auto
-			Custom = { "Carrot" }, -- any fruit u need to place
+			Custom = { -- any fruit u need to place
+				"Carrot",
+			}
 		},
 		Place = {
-			Mode = "lock", -- Select , Lock
-			Select = { "Carrot" }, 
+			Mode = "Lock", -- Select , Lock
+			Select = {
+				"Carrot"
+			},
 			Lock = {
 				"Maple Apple",
 				"Sunflower",
@@ -71,7 +78,11 @@ getgenv().ConfigsKaitun = {
 		}
 	},
 
-	["Seed Pack"] = { Locked = { } },
+	["Seed Pack"] = {
+		Locked = {
+
+		}
+	},
 
 	Events = {
 		["Bean Event"] = {
@@ -80,10 +91,10 @@ getgenv().ConfigsKaitun = {
 		Shop = { -- un comment to buy
 			"Sprout Seed Pack",
 			"Sprout Egg",
-			"Mandrake",
+			-- "Mandrake",
 			"Silver Fertilizer",
-			"Canary Melon",
-			"Amberheart",
+			-- "Canary Melon",
+			-- "Amberheart",
 			"Spriggan",
 		},
 		["Traveling Shop"] = {
@@ -113,8 +124,6 @@ getgenv().ConfigsKaitun = {
 			"Basic Sprinkler",
 			"Lightning Rod",
 		},
-	},
-		Lock = { },
 	},
 
 	Eggs = {
