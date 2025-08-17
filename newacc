@@ -74,44 +74,31 @@ getgenv().ConfigsKaitun = {
 	["Seed Pack"] = { Locked = { } },
 
 	Events = {
-		["Cook Event"] = {
-			Minimum_Money = 30_000_000, -- nếu gặp lỗi số, đổi thành 30000000
-			Rewards_Item = {
-				"Gourmet Egg",
-				"Gorilla Chef",
-				"Culinarian Chest",
-				"Gourmet Seed Pack",
-				"Sunny-Side Chicken",
-				"Cooking Cauldron",
-                "Pet Shard Aromatic",
-			}
+		["Bean Event"] = {
+			Minimum_Money = 10_000_000, -- minimum money to start play this event
 		},
-		["Traveling Shop"] = { "Bee Egg" },
+		Shop = { -- un comment to buy
+			"Sprout Seed Pack",
+			"Sprout Egg",
+			"Mandrake",
+			"Silver Fertilizer",
+			"Canary Melon",
+			"Amberheart",
+			"Spriggan",
+		},
+		["Traveling Shop"] = {
+			"Bee Egg",
+		},
 		Craft = {
-			"Ancient Seed Pack",
 			"Anti Bee Egg",
-			"Primal Egg",
 		},
-		Shop = {
-			"Zen Egg",
-			"Zen Seed Pack",
-			"Spiked Mango",
-			"Pet Shard Tranquil",
-			"Pet Shard Corrupted",
-			"Koi",
-			"Soft Sunshine",
-			"Sakura Bush",
-			"Raiju",
-		},
-		Start_Do_Honey = 2_000_000, -- nếu lỗi số, đổi thành 2000000
+		Start_Do_Honey = 2_000_000 -- start trade fruit for honey at money
 	},
 
 	Gear = {
-		Buy = {
+		Buy = { 
 			"Master Sprinkler",
-			"Trading Ticket",
 			"Godly Sprinkler",
-			"Grandmaster Sprinkler", -- sửa chính tả
 			"Advanced Sprinkler",
 			"Basic Sprinkler",
 			"Lightning Rod",
@@ -119,12 +106,22 @@ getgenv().ConfigsKaitun = {
 			"Medium Treat",
 			"Medium Toy",
 		},
+		Lock = {
+			"Master Sprinkler",
+			"Godly Sprinkler",
+			"Advanced Sprinkler",
+			"Basic Sprinkler",
+			"Lightning Rod",
+		},
+	},
 		Lock = { },
 	},
 
 	Eggs = {
 		Place = {
 			"Gourmet Egg",
+            "Sprout Egg",
+            "Primal Egg",
             "Zen Egg",
             "Common Summer Egg",
 			"Bug Egg",
@@ -133,6 +130,7 @@ getgenv().ConfigsKaitun = {
 		},
 		Buy = {
 			"Common Summer Egg",
+            "Oasis Egg",
 			"Bee Egg",
 			"Oasis Egg",
 			"Paradise Egg",
@@ -151,7 +149,12 @@ getgenv().ConfigsKaitun = {
 			},
 			["Limit Upgrade"] = 5,
 			["Equip When Done"] = {
-                ["Starfish"] = {8, 100, 1},
+				["Sunny-Side Chicken"] = { 1, 100, 1 },
+                ["Spriggan"] = { 2, 100 ,2 },
+                ["Jackalope"] = { 1, 100 ,3 },
+                ["Pancake Mole"] = { 3, 100,4},
+                ["Dairy Cow"] = { 1, 100, 5},
+                "Starfish"
 			},
 		},
 		Unfavorite_AllPet = true,
@@ -163,20 +166,26 @@ getgenv().ConfigsKaitun = {
 			"Capybara",
 			"Dragonfly",
 			"Raccoon",
+            ["Seal"] = 7,
+            "Spriggan",
+            "Golem",
 			"Fennec Fox",
+            "Golden Goose",
+            ["Dairy Cow"] = 2,
 			"Mimic Octopus",
+            ["Jackalope"] = 2,
+            ["Pancake Mole"] = 3,
 			"Red Fox",
+            "Pancake Mole",
 			"Blood Owl",
 			"Spinosaurus",
 			"T-Rex",
 			"Lobster Thermidor",
-			["Spaghetti Sloth"] = 3,
 			["Sunny-Side Chicken"] = 2,
 			["Starfish"] = 10,
 			"French Fry Ferret",
 			"Rainbow Hotdog Daschund",
-			["Gorilla Chef"] = 7,
-            ["Hotdog Daschund"] = 2,
+			["Gorilla Chef"] = 2,
             ["Koi"] = 4,
 		},
 		LockPet_Weight = 6,
@@ -189,6 +198,7 @@ getgenv().ConfigsKaitun = {
 		UrlPet = "https://discord.com/api/webhooks/1397922298501005433/GEYiKwB5LYJ2zP5k9EZDMrNeE2Hl6tJKSjZsi4q1-prT7PW-49ylG61Orx_dR73DgDaf",
 		UrlSeed = "",
 		PcName = "hai",
+        Mention = "992368296374571018", -- discord id
 		Noti = {
 			Seeds = { "Sunflower", "Dragon Pepper", "Elephant Ears" },
 			SeedPack = { "Idk" },
@@ -199,6 +209,7 @@ getgenv().ConfigsKaitun = {
 				"King Cabbage",
 				"Kitsune",
                 "Mimic Octopus",
+                "Golden Goose",
 			    "Red Fox",
 			},
 			Pet_Weight_Noti = true,
