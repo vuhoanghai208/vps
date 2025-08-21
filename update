@@ -1,6 +1,6 @@
 getgenv().configs = {
     coinFarm = true,
-    safeHeight = 1000,
+    safeHeight = 100,
     murderDistance = 30,
     coinWaitTime = 2,
     loopDelay = 0.2,
