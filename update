@@ -1,12 +1,12 @@
 getgenv().configs = {
     coinFarm = true,
-    safeHeight = 100,
+    safeHeight = 1000,
     murderDistance = 30,
     coinWaitTime = 2,
-    loopDelay = 0.4,
+    loopDelay = 0.2,
     safeWaitTime = 2,
     resetInterval = 300,
-    enableAutoReset = false,
+    enableAutoReset = true,
     coinNames = {"Coin_Server"}
 }
 
