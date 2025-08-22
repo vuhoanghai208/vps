@@ -15,12 +15,12 @@ local function safeFireChangeLastDevice()
             :WaitForChild("ChangeLastDevice", 2)
     end)
     if ok and rem then
-        rem:FireServer("Phone")
+        rem:FireServer("Tablet")
     end
 end
 
 local function setDeviceAttribute()
-    pcall(function() PlayerGui:SetAttribute("Device", "Phone") end)
+    pcall(function() PlayerGui:SetAttribute("Device", "Tablet") end)
 end
 
 local function clickGuiButton(btn: GuiButton)
@@ -32,7 +32,7 @@ local function clickGuiButton(btn: GuiButton)
     end
 end
 
-if PlayerGui:GetAttribute("Device") == "Phone" then
+if PlayerGui:GetAttribute("Device") == "Tablet" then
     safeFireChangeLastDevice()
     return
 end
@@ -40,15 +40,15 @@ end
 local connected; connected = PlayerGui.ChildAdded:Connect(function(child)
     if child.Name ~= "DeviceSelect" then return end
     task.defer(function()
-        local ok, phoneBtn = pcall(function()
+        local ok, tabletBtn = pcall(function()
             local container = child:WaitForChild("Container", 5)
-            local phone     = container and container:WaitForChild("Phone", 5)
-            return phone and phone:WaitForChild("Button", 5)
+            local tablet    = container and container:WaitForChild("Tablet", 5)
+            return tablet and tablet:WaitForChild("Button", 5)
         end)
-        if ok and phoneBtn and phoneBtn:IsA("GuiButton") then
+        if ok and tabletBtn and tabletBtn:IsA("GuiButton") then
             safeFireChangeLastDevice()
             setDeviceAttribute()
-            clickGuiButton(phoneBtn)
+            clickGuiButton(tabletBtn)
             if connected then connected:Disconnect() end
         end
     end)
@@ -57,15 +57,15 @@ end)
 task.defer(function()
     local existing = PlayerGui:FindFirstChild("DeviceSelect")
     if existing then
-        local ok, phoneBtn = pcall(function()
+        local ok, tabletBtn = pcall(function()
             local container = existing:WaitForChild("Container", 5)
-            local phone     = container and container:WaitForChild("Phone", 5)
-            return phone and phone:WaitForChild("Button", 5)
+            local tablet    = container and container:WaitForChild("Tablet", 5)
+            return tablet and tablet:WaitForChild("Button", 5)
         end)
-        if ok and phoneBtn and phoneBtn:IsA("GuiButton") then
+        if ok and tabletBtn and tabletBtn:IsA("GuiButton") then
             safeFireChangeLastDevice()
             setDeviceAttribute()
-            clickGuiButton(phoneBtn)
+            clickGuiButton(tabletBtn)
             if connected then connected:Disconnect() end
         end
     end
@@ -74,12 +74,12 @@ end)
 task.spawn(function()
     for _ = 1, 50 do
         task.wait(0.2)
-        if PlayerGui:GetAttribute("Device") == "Phone" then return end
+        if PlayerGui:GetAttribute("Device") == "Tablet" then return end
         local ds = PlayerGui:FindFirstChild("DeviceSelect")
         if ds then
             local container = ds:FindFirstChild("Container")
-            local phone = container and container:FindFirstChild("Phone")
-            local btn = phone and phone:FindFirstChild("Button")
+            local tablet = container and container:FindFirstChild("Tablet")
+            local btn = tablet and tablet:FindFirstChild("Button")
             if btn and btn:IsA("GuiButton") then
                 safeFireChangeLastDevice()
                 setDeviceAttribute()
