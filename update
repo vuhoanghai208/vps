@@ -28,4 +28,4 @@ getgenv().gagConfig = getgenv().gagConfig or {
         }
     },
 }
-loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/41f46177d4b33ba99c7c11c9bf4a25d4.lua"))()
+loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/bb22b88a501c552fcc9c12e27a239b97.lua"))()
