@@ -12,7 +12,6 @@ local Server, Next; repeat
 until Server
 
 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId , Server.id, game.Players.LocalPlayer)
-task.wait(5)
 script_key="PWaSPoKzUFhPJPtrYSslFghDmRQXEMRw";
 repeat task.wait() until game:IsLoaded()
 getgenv().gagConfig = getgenv().gagConfig or {
