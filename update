@@ -112,6 +112,27 @@ local HttpService = game:GetService("HttpService")
 local Heartbeat = RunService.Heartbeat
 local LP = Players.LocalPlayer
 local PlayerGui = LP:WaitForChild("PlayerGui")
+local TeleportService = game:GetService("TeleportService")
+
+local function serverHop()
+    local placeId = game.PlaceId
+    local servers = {}
+    local cursor = ""
+    local success, result = pcall(function()
+        return game:GetService("HttpService"):JSONDecode(
+            game:HttpGet("https://games.roblox.com/v1/games/"..placeId.."/servers/Public?sortOrder=Asc&limit=100"..(cursor ~= "" and "&cursor="..cursor or ""))
+        )
+    end)
+    if success and result and result.data then
+        for _, s in ipairs(result.data) do
+            if s.playing < s.maxPlayers then
+                TeleportService:TeleportToPlaceInstance(placeId, s.id, Players.LocalPlayer)
+                return
+            end
+        end
+    end
+end
+
 
 --==================== AUTO-SELECT DEVICE (Tablet) ====================--
 do
@@ -1373,11 +1394,18 @@ local function runFarm()
         local coins = getNearbyCoins(origin) or {}
 
         if #coins == 0 then
-            if UnderActive then
-                resetUnderAnchor()
-            end
+    if UnderActive then
+        resetUnderAnchor()
+    end
 
-            task.wait(G.RESCAN_INTERVAL or 1.2)
+    local playerCount = #Players:GetPlayers()
+    if playerCount <= 1 then
+        dbg("No coins and no players -> server hop")
+        serverHop()
+        return
+    end
+
+    task.wait(G.RESCAN_INTERVAL or 1.2)
         else
             if G.UNDERGROUND_MODE and not UnderActive then
                 setupUnderAnchor()
@@ -2085,9 +2113,9 @@ local function startBeachballWatchdog()
                         last = cur
                     elseif cur == last then
                         pcall(function()
-                            Players.LocalPlayer:Kick(
-                                tostring(G.BB_WATCH_KICK_MSG or "No BeachBalls gained in the last period.")
-                            )
+                            dbg("No BeachBalls gained -> hopping server")
+serverHop()
+
                         end)
                         break
                     else
