@@ -1,1 +1,354 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/NAVAAI098/Thunder-Hub/main/Kaitun.lua"))()
+-- 🌟 All-in-One Optimizer for Roblox (Fixed - No Ground Deletion) 🌟
+repeat task.wait() until game:IsLoaded()
+repeat task.wait() until game:GetService("Players").LocalPlayer
+
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+local RS = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
+local lp = Players.LocalPlayer
+local gui = lp:WaitForChild("PlayerGui", 10)
+
+-- Wait for map to load
+repeat task.wait() until Workspace:FindFirstChild("Map")
+local Map = Workspace.Map
+local Terrain = Workspace:WaitForChild("Terrain")
+
+-- Terrain optimization
+Terrain.WaterReflectance = 0
+Terrain.WaterTransparency = 1
+Terrain.WaterWaveSize = 0
+Terrain.WaterWaveSpeed = 0
+
+-- Lighting optimization
+Lighting.Brightness = 0
+Lighting.GlobalShadows = false
+Lighting.FogEnd = 9e100
+Lighting.FogStart = 0
+
+pcall(function()
+    sethiddenproperty(Lighting, "Technology", 2)
+    sethiddenproperty(Terrain, "Decoration", false)
+end)
+
+---------------------------------------------------------------------
+-- 🔹 Configuration
+---------------------------------------------------------------------
+local CONFIG = {
+    WATER_SETTINGS = {
+        Reflectance = 0,
+        Transparency = 1,
+        WaveSize = 0,
+        WaveSpeed = 0
+    },
+    LIGHTING_SETTINGS = {
+        Brightness = 0,
+        GlobalShadows = false,
+        FogEnd = 9e9,
+        FogStart = 0
+    },
+    DESTROY_PATTERNS = {"tree", "water", "bush", "grass", "foilage"},
+    PERFORMANCE_CHECK_INTERVAL = 3
+}
+
+---------------------------------------------------------------------
+-- 🔹 Core Optimization Functions
+---------------------------------------------------------------------
+
+-- Hàm xoá texture + hiệu ứng (cải tiến)
+local function clearTextures(v)
+    if v:IsA("BasePart") and not v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+    elseif v:IsA("Decal") or v:IsA("Texture") then
+        v.Transparency = 1
+    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA("Explosion") then
+        v.BlastPressure = 1
+        v.BlastRadius = 1
+    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+        v.Enabled = false
+    elseif v:IsA("MeshPart") then
+        v.Material = "Plastic"
+        v.Reflectance = 0
+        v.TextureID = 10385902758728957
+    elseif v:IsA("SpecialMesh") then
+        v.TextureId = 0
+    elseif v:IsA("ShirtGraphic") then
+        v.Graphic = 1
+    elseif (v:IsA("Shirt") or v:IsA("Pants")) then
+        v[v.ClassName .. "Template"] = 1
+    elseif v.Name == "Foilage" and v:IsA("Folder") then
+        v:Destroy()
+    elseif string.find(v.Name, "Tree") or string.find(v.Name, "Water") 
+        or string.find(v.Name, "Bush") or string.find(v.Name, "grass") then
+        v:Destroy()
+    end
+end
+
+-- Hàm ẩn Entity
+local function hideEntity(obj)
+    if obj:IsA("BasePart") then
+        obj.Transparency = 1
+        obj.CanCollide = false
+    elseif obj:IsA("Decal") or obj:IsA("Texture") then
+        obj.Transparency = 1
+    end
+end
+
+local function optimizeTerrain()
+    for property, value in pairs(CONFIG.WATER_SETTINGS) do
+        Terrain["Water" .. property] = value
+    end
+    
+    pcall(function()
+        sethiddenproperty(Terrain, "Decoration", false)
+    end)
+end
+
+local function optimizeLighting()
+    for property, value in pairs(CONFIG.LIGHTING_SETTINGS) do
+        Lighting[property] = value
+    end
+    
+    Lighting:ClearAllChildren()
+    
+    pcall(function()
+        sethiddenproperty(Lighting, "Technology", 2)
+    end)
+end
+
+local function shouldDestroy(name)
+    local lowerName = name:lower()
+    for _, pattern in ipairs(CONFIG.DESTROY_PATTERNS) do
+        if lowerName:find(pattern) then
+            return true
+        end
+    end
+    return false
+end
+
+local function optimizeObject(obj)
+    if not obj or not obj.Parent then return end
+    
+    local objType = obj.ClassName
+    
+    -- Handle destruction first (but NOT BasePlate/ground)
+    if shouldDestroy(obj.Name) and obj.Name ~= "BasePlate" and not obj.Name:lower():find("ground") and not obj.Name:lower():find("floor") then
+        obj:Destroy()
+        return
+    end
+    
+    -- Optimize based on object type
+    if objType == "BasePart" or objType == "Part" or objType == "UnionOperation" then
+        -- Special handling for ground/base parts - keep collision but make transparent
+        if obj.Name == "BasePlate" or obj.Name:lower():find("ground") or obj.Name:lower():find("floor") or obj.Name:lower():find("base") then
+            obj.Transparency = 1
+            obj.Material = Enum.Material.Plastic
+            obj.Reflectance = 0
+            -- Keep CanCollide = true for ground parts so players don't fall
+        else
+            obj.Transparency = 1
+            obj.CanCollide = false
+            obj.Material = Enum.Material.Plastic
+            obj.Reflectance = 0
+        end
+        
+    elseif objType == "MeshPart" then
+        -- Same logic for MeshPart grounds
+        if obj.Name:lower():find("ground") or obj.Name:lower():find("floor") or obj.Name:lower():find("base") then
+            obj.Transparency = 1
+            obj.Material = Enum.Material.Plastic
+            obj.Reflectance = 0
+            obj.TextureID = ""
+            -- Keep CanCollide = true
+        else
+            obj.Transparency = 1
+            obj.CanCollide = false
+            obj.Material = Enum.Material.Plastic
+            obj.Reflectance = 0
+            obj.TextureID = ""
+        end
+        
+    elseif objType == "Decal" or objType == "Texture" then
+        obj.Transparency = 1
+        
+    elseif objType == "ParticleEmitter" or objType == "Trail" then
+        obj.Enabled = false
+        
+    elseif objType == "Explosion" then
+        obj.BlastPressure = 1
+        obj.BlastRadius = 1
+        
+    elseif objType == "Fire" or objType == "Smoke" or objType == "Sparkles" or objType == "SpotLight" then
+        obj.Enabled = false
+        
+    elseif objType == "SpecialMesh" then
+        obj.TextureId = ""
+        
+    elseif objType == "ShirtGraphic" then
+        obj.Graphic = ""
+        
+    elseif objType == "Shirt" or objType == "Pants" then
+        obj[objType .. "Template"] = ""
+    end
+    -- Removed BasePlate destruction - now only make it transparent
+end
+
+---------------------------------------------------------------------
+-- 🔹 Batch Processing for Performance
+---------------------------------------------------------------------
+local function batchOptimize(objects, batchSize)
+    batchSize = batchSize or 50
+    local count = 0
+    
+    for _, obj in pairs(objects) do
+        optimizeObject(obj)
+        count = count + 1
+        
+        if count >= batchSize then
+            task.wait()
+            count = 0
+        end
+    end
+end
+
+---------------------------------------------------------------------
+-- 🔹 Performance Mode Handler
+---------------------------------------------------------------------
+local function handlePerformanceMode()
+    task.spawn(function()
+        while task.wait(CONFIG.PERFORMANCE_CHECK_INTERVAL) do
+            local settingsGui = gui:FindFirstChild("Settings", true)
+            if settingsGui then
+                local perfButton = settingsGui:FindFirstChild("Performance mode", true)
+                if perfButton and perfButton:IsA("TextButton") then
+                    perfButton.Text = "On"
+                    perfButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                end
+            end
+        end
+    end)
+    
+    task.spawn(function()
+        pcall(function()
+            local module = RS:WaitForChild("Others"):WaitForChild("UnitCallbacks"):WaitForChild("RespectPerformanceMode")
+            if module and module:IsA("ModuleScript") then
+                local fn = require(module)
+                if type(fn) == "function" then
+                    fn(true)
+                end
+            end
+        end)
+    end)
+end
+
+---------------------------------------------------------------------
+-- 🔹 Connection Manager
+---------------------------------------------------------------------
+local connections = {}
+
+local function setupConnections()
+    -- Target folders to monitor
+    local targetFolders = {
+        "Entities",
+        "Border", 
+        "Model",
+        "InvisibleBarrier"
+    }
+    
+    for _, folderName in ipairs(targetFolders) do
+        local folder = Map:FindFirstChild(folderName)
+        if folder then
+            -- Optimize existing objects
+            batchOptimize(folder:GetDescendants())
+            
+            -- Monitor new objects
+            local connection = folder.DescendantAdded:Connect(function(obj)
+                task.wait() -- Small delay to ensure object is fully loaded
+                optimizeObject(obj)
+            end)
+            
+            table.insert(connections, connection)
+        end
+    end
+    
+    -- Monitor workspace for new objects
+    local workspaceConnection = Workspace.DescendantAdded:Connect(function(obj)
+        if obj:IsDescendantOf(Map) then
+            task.wait()
+            optimizeObject(obj)
+        end
+    end)
+    
+    table.insert(connections, workspaceConnection)
+end
+
+---------------------------------------------------------------------
+-- 🔹 Main Execution
+---------------------------------------------------------------------
+local function main()
+    print("[🔄 Optimizer] Starting optimization...")
+    
+    -- Apply core optimizations
+    optimizeTerrain()
+    optimizeLighting()
+    
+    -- Xoá toàn bộ Lighting
+    Lighting:ClearAllChildren()
+    
+    -- Lọc toàn map lúc đầu
+    for _, v in pairs(Workspace:GetDescendants()) do
+        clearTextures(v)
+    end
+    
+    Workspace.DescendantAdded:Connect(clearTextures)
+    
+    -- Lọc Entities lúc đầu (nếu có)
+    if Map:FindFirstChild("Entities") then
+        local Entities = Map.Entities
+        for _, v in pairs(Entities:GetDescendants()) do
+            hideEntity(v)
+        end
+        
+        -- Luôn luôn ẩn Entity mới spawn
+        Entities.DescendantAdded:Connect(hideEntity)
+    end
+    
+    -- Initial map optimization
+    print("[🔄 Optimizer] Optimizing existing objects...")
+    batchOptimize(Map:GetDescendants(), 100)
+    
+    -- Setup monitoring connections
+    setupConnections()
+    
+    -- Handle performance mode
+    handlePerformanceMode()
+    
+    print("[✅ Optimizer] All-in-One Performance Script Loaded Successfully!")
+    print("[📊 Optimizer] Monitoring", #connections, "connections for new objects")
+    print("[🛡️ Optimizer] Ground/Floor parts preserved with collision for safety!")
+end
+
+-- Cleanup function (optional)
+local function cleanup()
+    for _, connection in pairs(connections) do
+        if connection then
+            connection:Disconnect()
+        end
+    end
+    connections = {}
+end
+
+-- Handle player leaving (cleanup)
+Players.PlayerRemoving:Connect(function(player)
+    if player == lp then
+        cleanup()
+    end
+end)
+
+-- Start the optimizer
+main()
