@@ -10,28 +10,49 @@ local RunService = game:GetService("RunService")
 
 local lp = Players.LocalPlayer
 local gui = lp:WaitForChild("PlayerGui", 10)
-local kien=game.Players.LocalPlayer
-local kien2=(kien.Character or kien.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart")
-kien.CharacterAdded:Connect(function()kien2=(kien.Character or kien.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart")end)
-local kien3=workspace:WaitForChild("EffectHolder")
-local kien4=game.ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("CollectCollectable")
+local kien = game.Players.LocalPlayer 
+local kien2 = (kien.Character or kien.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart") 
+kien.CharacterAdded:Connect(function()
+    kien2 = (kien.Character or kien.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart")
+end) 
+
+local kien3 = workspace:WaitForChild("EffectHolder")
+local kien4 = game.ReplicatedStorage:WaitForChild("RemoteEvents"):WaitForChild("CollectCollectable")
+
+-- hàm collect nhanh
 local function kien5(s)
     if not kien2 or not s then return end
     local cf
-    if s:IsA("BasePart") then cf=s.CFrame elseif s:IsA("Model") then cf=s:GetPivot() else
-        local p=s:FindFirstChildWhichIsA("BasePart",true)
-        if p then cf=p.CFrame end
+    if s:IsA("BasePart") then
+        cf = s.CFrame
+    elseif s:IsA("Model") then
+        cf = s:GetPivot()
+    else
+        local p = s:FindFirstChildWhichIsA("BasePart", true)
+        if p then cf = p.CFrame end
     end
-    if not cf then return end
-    local old=kien2.CFrame
-    kien2.CFrame=cf
-    task.wait(0.15)
-    kien4:FireServer(5002)
-    task.wait(0.15)
-    kien2.CFrame=old
+    if not cf then return end 
+
+    -- giữ vị trí cũ
+    local old = kien2.CFrame 
+    
+    -- teleport cực nhanh 0.01s
+    kien2.CFrame = cf 
+    task.wait(0.01) 
+    kien4:FireServer(5002) 
+    kien2.CFrame = old
 end
-for _,v in ipairs(kien3:GetChildren())do if v.Name=="Sunflower"then task.defer(kien5,v)end end
-kien3.ChildAdded:Connect(function(v)if v.Name=="Sunflower"then kien5(v)end end)
+
+-- vòng lặp auto collect mỗi 1 giây
+task.spawn(function()
+    while task.wait(1) do
+        for _,v in ipairs(kien3:GetChildren()) do
+            if v.Name=="Sunflower" then
+                pcall(function() kien5(v) end)
+            end
+        end
+    end
+end)
 -- Wait for map to load
 repeat task.wait() until Workspace:FindFirstChild("Map")
 local Map = Workspace.Map
