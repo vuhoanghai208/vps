@@ -1,4 +1,4 @@
--- 🌟 All-in-One Optimizer for Roblox (Fixed - No Ground Deletion) 🌟
+-- 1🌟 All-in-One Optimizer for Roblox (Fixed - No Ground Deletion) 🌟
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game:GetService("Players").LocalPlayer
 
@@ -330,7 +330,7 @@ local function main()
     
     print("[✅ Optimizer] All-in-One Performance Script Loaded Successfully!")
     print("[📊 Optimizer] Monitoring", #connections, "connections for new objects")
-    print("[🛡️ Optimizer] Ground/Floor parts preserved with collision for safety!")
+    print("[🛡️ Optimizer] UI and PlayerGui are protected from optimization!")
 end
 
 -- Cleanup function (optional)
