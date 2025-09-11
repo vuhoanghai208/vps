@@ -1,37 +1,94 @@
--- 1🌟 All-in-One Optimizer for Roblox (Fixed - No Ground Deletion) 🌟
+-- 🌟 All-in-One Optimizer for Roblox (Improved Structure) 🌟
 repeat task.wait() until game:IsLoaded()
 repeat task.wait() until game:GetService("Players").LocalPlayer
 
+---------------------------------------------------------------------
+-- 🔹 Services & Variables
+---------------------------------------------------------------------
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local Lighting = game:GetService("Lighting")
-local RS = game:GetService("ReplicatedStorage")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
-local lp = Players.LocalPlayer
-local gui = lp:WaitForChild("PlayerGui", 10)
+local localPlayer = Players.LocalPlayer
+local playerGui = localPlayer:WaitForChild("PlayerGui", 10)
 
--- Wait for map to load
-repeat task.wait() until Workspace:FindFirstChild("Map")
-local Map = Workspace.Map
-local Terrain = Workspace:WaitForChild("Terrain")
+-- Character handling
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
--- Terrain optimization
-Terrain.WaterReflectance = 0
-Terrain.WaterTransparency = 1
-Terrain.WaterWaveSize = 0
-Terrain.WaterWaveSpeed = 0
-
--- Lighting optimization
-Lighting.Brightness = 0
-Lighting.GlobalShadows = false
-Lighting.FogEnd = 9e100
-Lighting.FogStart = 0
-
-pcall(function()
-    sethiddenproperty(Lighting, "Technology", 2)
-    sethiddenproperty(Terrain, "Decoration", false)
+localPlayer.CharacterAdded:Connect(function(newChar)
+    character = newChar
+    humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 end)
+
+---------------------------------------------------------------------
+-- 🔹 Sunflower Auto Collector
+---------------------------------------------------------------------
+local function setupSunflowerCollector()
+    local success, effectHolder = pcall(function()
+        return workspace:WaitForChild("EffectHolder", 5)
+    end)
+    
+    if not success or not effectHolder then
+        warn("[Optimizer] EffectHolder not found - skipping sunflower collector")
+        return
+    end
+    
+    local collectEvent
+    pcall(function()
+        collectEvent = ReplicatedStorage:WaitForChild("RemoteEvents", 5):WaitForChild("CollectCollectable", 5)
+    end)
+    
+    if not collectEvent then
+        warn("[Optimizer] CollectCollectable event not found")
+        return
+    end
+    
+    local function collectSunflower(sunflower)
+        if not humanoidRootPart or not sunflower or not sunflower.Parent then return end
+        
+        local targetCFrame
+        if sunflower:IsA("BasePart") then
+            targetCFrame = sunflower.CFrame
+        elseif sunflower:IsA("Model") then
+            targetCFrame = sunflower:GetPivot()
+        else
+            local primaryPart = sunflower:FindFirstChildWhichIsA("BasePart", true)
+            if primaryPart then
+                targetCFrame = primaryPart.CFrame
+            end
+        end
+        
+        if not targetCFrame then return end
+        
+        local originalCFrame = humanoidRootPart.CFrame
+        humanoidRootPart.CFrame = targetCFrame
+        task.wait(0.15)
+        
+        pcall(function()
+            collectEvent:FireServer(5002)
+        end)
+        
+        task.wait(0.15)
+        humanoidRootPart.CFrame = originalCFrame
+    end
+    
+    -- Collect existing sunflowers
+    for _, child in ipairs(effectHolder:GetChildren()) do
+        if child.Name == "Sunflower" then
+            task.spawn(collectSunflower, child)
+        end
+    end
+    
+    -- Monitor new sunflowers
+    effectHolder.ChildAdded:Connect(function(child)
+        if child.Name == "Sunflower" then
+            collectSunflower(child)
+        end
+    end)
+end
 
 ---------------------------------------------------------------------
 -- 🔹 Configuration
@@ -50,127 +107,66 @@ local CONFIG = {
         FogStart = 0
     },
     DESTROY_PATTERNS = {"tree", "water", "bush", "grass", "foilage"},
+    PROTECT_PATTERNS = {"baseplate", "ground", "floor", "base", "spawn"},
+    BATCH_SIZE = 50,
     PERFORMANCE_CHECK_INTERVAL = 3
 }
 
 ---------------------------------------------------------------------
--- 🔹 Core Optimization Functions
+-- 🔹 Utility Functions
 ---------------------------------------------------------------------
-
--- Hàm xoá texture + hiệu ứng (cải tiến)
-local function clearTextures(v)
-    if v:IsA("BasePart") and not v:IsA("MeshPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-    elseif v:IsA("Decal") or v:IsA("Texture") then
-        v.Transparency = 1
-    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-        v.Lifetime = NumberRange.new(0)
-    elseif v:IsA("Explosion") then
-        v.BlastPressure = 1
-        v.BlastRadius = 1
-    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
-        v.Enabled = false
-    elseif v:IsA("MeshPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-        v.TextureID = 10385902758728957
-    elseif v:IsA("SpecialMesh") then
-        v.TextureId = 0
-    elseif v:IsA("ShirtGraphic") then
-        v.Graphic = 1
-    elseif (v:IsA("Shirt") or v:IsA("Pants")) then
-        v[v.ClassName .. "Template"] = 1
-    elseif v.Name == "Foilage" and v:IsA("Folder") then
-        v:Destroy()
-    elseif string.find(v.Name, "Tree") or string.find(v.Name, "Water") 
-        or string.find(v.Name, "Bush") or string.find(v.Name, "grass") then
-        v:Destroy()
-    end
-end
-
--- Hàm ẩn Entity
-local function hideEntity(obj)
-    if obj:IsA("BasePart") then
-        obj.Transparency = 1
-        obj.CanCollide = false
-    elseif obj:IsA("Decal") or obj:IsA("Texture") then
-        obj.Transparency = 1
-    end
-end
-
-local function optimizeTerrain()
-    for property, value in pairs(CONFIG.WATER_SETTINGS) do
-        Terrain["Water" .. property] = value
-    end
-    
-    pcall(function()
-        sethiddenproperty(Terrain, "Decoration", false)
-    end)
-end
-
-local function optimizeLighting()
-    for property, value in pairs(CONFIG.LIGHTING_SETTINGS) do
-        Lighting[property] = value
-    end
-    
-    Lighting:ClearAllChildren()
-    
-    pcall(function()
-        sethiddenproperty(Lighting, "Technology", 2)
-    end)
-end
-
-local function shouldDestroy(name)
-    local lowerName = name:lower()
-    for _, pattern in ipairs(CONFIG.DESTROY_PATTERNS) do
-        if lowerName:find(pattern) then
+local function isProtectedObject(obj)
+    local name = obj.Name:lower()
+    for _, pattern in ipairs(CONFIG.PROTECT_PATTERNS) do
+        if name:find(pattern) then
             return true
         end
     end
     return false
 end
 
+local function shouldDestroy(obj)
+    local name = obj.Name:lower()
+    for _, pattern in ipairs(CONFIG.DESTROY_PATTERNS) do
+        if name:find(pattern) then
+            return not isProtectedObject(obj)
+        end
+    end
+    return false
+end
+
+---------------------------------------------------------------------
+-- 🔹 Core Optimization Function (Unified)
+---------------------------------------------------------------------
 local function optimizeObject(obj)
     if not obj or not obj.Parent then return end
     
     local objType = obj.ClassName
+    local isProtected = isProtectedObject(obj)
     
-    -- Handle destruction first (but NOT BasePlate/ground)
-    if shouldDestroy(obj.Name) and obj.Name ~= "BasePlate" and not obj.Name:lower():find("ground") and not obj.Name:lower():find("floor") then
-        obj:Destroy()
+    -- Destroy unwanted objects (but protect important ones)
+    if shouldDestroy(obj) and not isProtected then
+        pcall(function() obj:Destroy() end)
         return
     end
     
     -- Optimize based on object type
     if objType == "BasePart" or objType == "Part" or objType == "UnionOperation" then
-        -- Special handling for ground/base parts - keep collision but make transparent
-        if obj.Name == "BasePlate" or obj.Name:lower():find("ground") or obj.Name:lower():find("floor") or obj.Name:lower():find("base") then
-            obj.Transparency = 1
-            obj.Material = Enum.Material.Plastic
-            obj.Reflectance = 0
-            -- Keep CanCollide = true for ground parts so players don't fall
-        else
-            obj.Transparency = 1
+        obj.Transparency = 1
+        obj.Material = Enum.Material.Plastic
+        obj.Reflectance = 0
+        -- Keep collision for protected objects (ground, etc.)
+        if not isProtected then
             obj.CanCollide = false
-            obj.Material = Enum.Material.Plastic
-            obj.Reflectance = 0
         end
         
     elseif objType == "MeshPart" then
-        -- Same logic for MeshPart grounds
-        if obj.Name:lower():find("ground") or obj.Name:lower():find("floor") or obj.Name:lower():find("base") then
-            obj.Transparency = 1
-            obj.Material = Enum.Material.Plastic
-            obj.Reflectance = 0
-            obj.TextureID = ""
-            -- Keep CanCollide = true
-        else
-            obj.Transparency = 1
+        obj.Transparency = 1
+        obj.Material = Enum.Material.Plastic
+        obj.Reflectance = 0
+        obj.TextureID = ""
+        if not isProtected then
             obj.CanCollide = false
-            obj.Material = Enum.Material.Plastic
-            obj.Reflectance = 0
-            obj.TextureID = ""
         end
         
     elseif objType == "Decal" or objType == "Texture" then
@@ -193,20 +189,21 @@ local function optimizeObject(obj)
         obj.Graphic = ""
         
     elseif objType == "Shirt" or objType == "Pants" then
-        obj[objType .. "Template"] = ""
+        pcall(function()
+            obj[objType .. "Template"] = ""
+        end)
     end
-    -- Removed BasePlate destruction - now only make it transparent
 end
 
 ---------------------------------------------------------------------
--- 🔹 Batch Processing for Performance
+-- 🔹 Batch Processing
 ---------------------------------------------------------------------
 local function batchOptimize(objects, batchSize)
-    batchSize = batchSize or 50
+    batchSize = batchSize or CONFIG.BATCH_SIZE
     local count = 0
     
     for _, obj in pairs(objects) do
-        optimizeObject(obj)
+        pcall(optimizeObject, obj)
         count = count + 1
         
         if count >= batchSize then
@@ -217,29 +214,65 @@ local function batchOptimize(objects, batchSize)
 end
 
 ---------------------------------------------------------------------
+-- 🔹 Environment Optimization
+---------------------------------------------------------------------
+local function optimizeTerrain()
+    local terrain = Workspace:FindFirstChild("Terrain")
+    if not terrain then return end
+    
+    for property, value in pairs(CONFIG.WATER_SETTINGS) do
+        pcall(function()
+            terrain["Water" .. property] = value
+        end)
+    end
+    
+    pcall(function()
+        sethiddenproperty(terrain, "Decoration", false)
+    end)
+end
+
+local function optimizeLighting()
+    for property, value in pairs(CONFIG.LIGHTING_SETTINGS) do
+        pcall(function()
+            Lighting[property] = value
+        end)
+    end
+    
+    pcall(function()
+        Lighting:ClearAllChildren()
+        sethiddenproperty(Lighting, "Technology", 2)
+    end)
+end
+
+---------------------------------------------------------------------
 -- 🔹 Performance Mode Handler
 ---------------------------------------------------------------------
 local function handlePerformanceMode()
     task.spawn(function()
         while task.wait(CONFIG.PERFORMANCE_CHECK_INTERVAL) do
-            local settingsGui = gui:FindFirstChild("Settings", true)
-            if settingsGui then
-                local perfButton = settingsGui:FindFirstChild("Performance mode", true)
-                if perfButton and perfButton:IsA("TextButton") then
-                    perfButton.Text = "On"
-                    perfButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+            pcall(function()
+                local settingsGui = playerGui:FindFirstChild("Settings", true)
+                if settingsGui then
+                    local perfButton = settingsGui:FindFirstChild("Performance mode", true)
+                    if perfButton and perfButton:IsA("TextButton") then
+                        perfButton.Text = "On"
+                        perfButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                    end
                 end
-            end
+            end)
         end
     end)
     
     task.spawn(function()
         pcall(function()
-            local module = RS:WaitForChild("Others"):WaitForChild("UnitCallbacks"):WaitForChild("RespectPerformanceMode")
+            local module = ReplicatedStorage:WaitForChild("Others", 5)
+                :WaitForChild("UnitCallbacks", 5)
+                :WaitForChild("RespectPerformanceMode", 5)
+            
             if module and module:IsA("ModuleScript") then
-                local fn = require(module)
-                if type(fn) == "function" then
-                    fn(true)
+                local func = require(module)
+                if type(func) == "function" then
+                    func(true)
                 end
             end
         end)
@@ -252,23 +285,30 @@ end
 local connections = {}
 
 local function setupConnections()
+    -- Wait for map to load
+    local map
+    local success, error = pcall(function()
+        map = Workspace:WaitForChild("Map", 10)
+    end)
+    
+    if not success or not map then
+        warn("[Optimizer] Map not found - using Workspace instead")
+        map = Workspace
+    end
+    
     -- Target folders to monitor
-    local targetFolders = {
-        "Entities",
-        "Border", 
-        "Model",
-        "InvisibleBarrier"
-    }
+    local targetFolders = {"Entities", "Border", "Model", "InvisibleBarrier"}
     
     for _, folderName in ipairs(targetFolders) do
-        local folder = Map:FindFirstChild(folderName)
+        local folder = map:FindFirstChild(folderName)
         if folder then
             -- Optimize existing objects
+            print("[Optimizer] Optimizing", folderName, "folder...")
             batchOptimize(folder:GetDescendants())
             
             -- Monitor new objects
             local connection = folder.DescendantAdded:Connect(function(obj)
-                task.wait() -- Small delay to ensure object is fully loaded
+                task.wait() -- Small delay for object to fully load
                 optimizeObject(obj)
             end)
             
@@ -278,49 +318,46 @@ local function setupConnections()
     
     -- Monitor workspace for new objects
     local workspaceConnection = Workspace.DescendantAdded:Connect(function(obj)
-        if obj:IsDescendantOf(Map) then
+        if obj:IsDescendantOf(map) then
             task.wait()
             optimizeObject(obj)
         end
     end)
     
     table.insert(connections, workspaceConnection)
+    
+    print("[Optimizer] Set up", #connections, "monitoring connections")
+end
+
+---------------------------------------------------------------------
+-- 🔹 Cleanup Function
+---------------------------------------------------------------------
+local function cleanup()
+    for _, connection in pairs(connections) do
+        if connection then
+            connection:Disconnect()
+        end
+    end
+    connections = {}
+    print("[Optimizer] Cleaned up connections")
 end
 
 ---------------------------------------------------------------------
 -- 🔹 Main Execution
 ---------------------------------------------------------------------
 local function main()
-    print("[🔄 Optimizer] Starting optimization...")
+    print("[🔄 Optimizer] Starting All-in-One Performance Optimizer...")
     
-    -- Apply core optimizations
+    -- Core optimizations
     optimizeTerrain()
     optimizeLighting()
     
-    -- Xoá toàn bộ Lighting
-    Lighting:ClearAllChildren()
-    
-    -- Lọc toàn map lúc đầu
-    for _, v in pairs(Workspace:GetDescendants()) do
-        clearTextures(v)
-    end
-    
-    Workspace.DescendantAdded:Connect(clearTextures)
-    
-    -- Lọc Entities lúc đầu (nếu có)
-    if Map:FindFirstChild("Entities") then
-        local Entities = Map.Entities
-        for _, v in pairs(Entities:GetDescendants()) do
-            hideEntity(v)
-        end
-        
-        -- Luôn luôn ẩn Entity mới spawn
-        Entities.DescendantAdded:Connect(hideEntity)
-    end
-    
-    -- Initial map optimization
+    -- Initial optimization of all workspace objects
     print("[🔄 Optimizer] Optimizing existing objects...")
-    batchOptimize(Map:GetDescendants(), 100)
+    batchOptimize(Workspace:GetDescendants(), 100)
+    
+    -- Setup sunflower collector
+    setupSunflowerCollector()
     
     -- Setup monitoring connections
     setupConnections()
@@ -329,26 +366,21 @@ local function main()
     handlePerformanceMode()
     
     print("[✅ Optimizer] All-in-One Performance Script Loaded Successfully!")
-    print("[📊 Optimizer] Monitoring", #connections, "connections for new objects")
-    print("[🛡️ Optimizer] UI and PlayerGui are protected from optimization!")
-end
-
--- Cleanup function (optional)
-local function cleanup()
-    for _, connection in pairs(connections) do
-        if connection then
-            connection:Disconnect()
-        end
-    end
-    connections = {}
+    print("[🛡️ Optimizer] Protected objects (ground/base) will maintain collision")
+    print("[📊 Optimizer] Monitoring for new objects and optimizing automatically")
 end
 
 -- Handle player leaving (cleanup)
 Players.PlayerRemoving:Connect(function(player)
-    if player == lp then
+    if player == localPlayer then
         cleanup()
-    end
-end)
+    end)
 
--- Start the optimizer
-main()
+-- Error handling for main execution
+local success, error = pcall(main)
+if not success then
+    warn("[Optimizer] Error during initialization:", error)
+    print("[Optimizer] Attempting basic optimization...")
+    pcall(optimizeTerrain)
+    pcall(optimizeLighting)
+end
