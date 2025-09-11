@@ -91,7 +91,7 @@ local CONFIG = {
         FogEnd = 9e9,
         FogStart = 0
     },
-    DESTROY_PATTERNS = {"tree", "water", "bush", "grass", "foilage"},
+    DESTROY_PATTERNS = {"tree", "water", "bush", "grass", "foliage"},
     PERFORMANCE_CHECK_INTERVAL = 3
 }
 
@@ -394,3 +394,79 @@ end)
 
 -- Start the optimizer
 main()
+---------------------------------------------------------------------
+-- 🔹 FPS Counter + White Screen
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+-- 🔹 FPS Counter + White Screen UI (Chỉnh theo yêu cầu)
+---------------------------------------------------------------------
+local fpsGui = Instance.new("ScreenGui")
+fpsGui.Name = "OptimizerUI"
+fpsGui.ResetOnSpawn = false
+fpsGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- FPS Counter (màu đỏ, giữa trên màn hình)
+local fpsLabel = Instance.new("TextLabel")
+fpsLabel.Size = UDim2.new(0, 200, 0, 50)
+fpsLabel.Position = UDim2.new(0.5, -100, 0.05, 0)
+fpsLabel.BackgroundTransparency = 1
+fpsLabel.TextColor3 = Color3.new(1, 0, 0) -- 🔴 đỏ
+fpsLabel.TextStrokeTransparency = 0.5
+fpsLabel.TextScaled = true
+fpsLabel.Font = Enum.Font.SourceSansBold
+fpsLabel.Text = "FPS: ..."
+fpsLabel.Parent = fpsGui
+
+-- White Screen (full màn hình)
+local whiteFrame = Instance.new("Frame")
+whiteFrame.Size = UDim2.new(1, 0, 1, 0)
+whiteFrame.Position = UDim2.new(0, 0, 0, 0)
+whiteFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+whiteFrame.Visible = false
+whiteFrame.ZIndex = 5
+whiteFrame.Parent = fpsGui
+
+-- Toggle Button (bên trái màn hình)
+local toggleBtn = Instance.new("TextButton")
+toggleBtn.Size = UDim2.new(0, 150, 0, 40)
+toggleBtn.Position = UDim2.new(0, 10, 0.2, 0) -- 📍 trái màn hình
+toggleBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+toggleBtn.TextColor3 = Color3.new(1, 1, 1)
+toggleBtn.Text = "White Screen: OFF"
+toggleBtn.TextScaled = true
+toggleBtn.Font = Enum.Font.SourceSansBold
+toggleBtn.ZIndex = 6
+toggleBtn.Parent = fpsGui
+
+-- Toggle Logic
+local whiteOn = false
+toggleBtn.MouseButton1Click:Connect(function()
+    whiteOn = not whiteOn
+    whiteFrame.Visible = whiteOn
+    toggleBtn.Text = whiteOn and "White Screen: ON" or "White Screen: OFF"
+    toggleBtn.BackgroundColor3 = whiteOn and Color3.fromRGB(0, 200, 0) or Color3.fromRGB(50, 50, 50)
+end)
+
+-- FPS Counter Logic
+local RunService = game:GetService("RunService")
+local lastTime = tick()
+RunService.RenderStepped:Connect(function()
+    local now = tick()
+    local fps = math.floor(1 / (now - lastTime))
+    lastTime = now
+    fpsLabel.Text = "FPS: " .. fps
+end)
+
+---------------------------------------------------------------------
+-- 🔹 Auto Press Q mỗi 10 giây
+---------------------------------------------------------------------
+task.spawn(function()
+    local Vim = game:GetService("VirtualInputManager")
+    while task.wait(10) do
+        pcall(function()
+            Vim:SendKeyEvent(true, Enum.KeyCode.Q, false, game)
+            task.wait(0.1)
+            Vim:SendKeyEvent(false, Enum.KeyCode.Q, false, game)
+        end)
+    end
+end)
